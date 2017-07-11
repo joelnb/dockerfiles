@@ -1,0 +1,17 @@
+server {
+    listen 80;
+    server_name gollum;
+
+    # Tell Nginx and Passenger where your app's 'public' directory is
+    root /wiki;
+
+    passenger_app_root /opt/gollum;
+    passenger_document_root /wiki;
+
+    # passenger_user_switching on;
+    passenger_user gollum;
+
+    # Turn on Passenger
+    passenger_enabled on;
+    passenger_ruby /usr/bin/ruby;
+}
