@@ -36,12 +36,11 @@ usage: $(basename "$0") [DIRECTORY]
 Build dockerfiles for testing.
 
 ARGUMENTS:
-   DIRECTORY    The directory containing the Dockerfile. Not required
-                if -a is specified as then all directories in the same
-                location as this script will be built.
+   DIRECTORY    The directory containing the Dockerfile. If no directory
+                is specified as then all directories in the same location
+                as this script will be built.
 
 OPTIONS:
-   -a           Build all images.
    -h           Show this message.
    -n           Pass the '--no-cache' option to docker build.
    -t TAG       A tag to apply to the built image.
@@ -51,13 +50,10 @@ EOF
 	exit 1
 }
 
-while getopts "hant:u:V" OPTION; do
+while getopts "hnt:u:V" OPTION; do
 	case $OPTION in
 		h)
 			usage
-			;;
-		a)
-			ALL=1
 			;;
 		n)
 			COMMON_ARGS="${COMMON_ARGS} --no-cache"
@@ -80,11 +76,7 @@ done
 shift $(($OPTIND - 1))
 
 DIRECTORY="${1:-}"
-if [ -z "${DIRECTORY}" ]; then
-	[ -z "${ALL}" ] && usage
-else
-	shift
-fi
+[ -n "${DIRECTORY}" ] && shift
 
 if [ -z "${DIRECTORY}" ]; then
 	build_all_images
