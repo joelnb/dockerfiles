@@ -12,8 +12,8 @@ USERNAME=joelnb
 VERBOSE=
 
 build_all_images() {
-	while read -rd $'\0' imagedir; do \
-		build_single_image "${imagedir}"; \
+	while read -rd $'\0' imagedir; do
+		build_single_image "${imagedir}"
 	done < <(find "${DIR}" -mindepth 1 -maxdepth 1 -not -name ".git" -type d -print0)
 }
 
