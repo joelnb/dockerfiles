@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby22
+FROM phusion/passenger-ruby24
 MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
 
 RUN \
