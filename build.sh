@@ -7,7 +7,7 @@ DIR=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
 
 ALL=
 COMMON_ARGS=
-TAG=
+TAG=":local"
 USERNAME=joelnb
 VERBOSE=
 
@@ -43,7 +43,7 @@ ARGUMENTS:
 OPTIONS:
    -h           Show this message.
    -n           Pass the '--no-cache' option to docker build.
-   -t TAG       A tag to apply to the built image.
+   -t TAG       A tag to apply to the built image [default: local].
    -u USER      The username to name images under [default: ${USERNAME}]
    -V           Increase output verbosity.
 EOF
