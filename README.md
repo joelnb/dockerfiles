@@ -1,9 +1,8 @@
 # Joel's Dockerfiles
 
-These are some Dockerfiles which I maintain either for my
-own use or for testing. The things I actually use are likely
-to be better maintained but I am happy to accept pull requests
-for anything.
+These are some Dockerfiles which I maintain either for my own use
+or for testing. The things I actually use are likely to be better
+maintained but I am happy to accept pull requests for anything.
 
 ## Getting the images
 
