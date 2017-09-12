@@ -1,4 +1,4 @@
-FROM r-base:3.4
+FROM r-base:3.4.1
 MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
 
 RUN \
