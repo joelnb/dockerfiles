@@ -27,6 +27,25 @@ server:
             key: tls.key
             cert: tls.crt
 
+    # strict transport security, to get clients to automagically use TLS
+    sts:
+        # whether to advertise STS
+        #
+        # to stop advertising STS, leave this enabled and set 'duration' below to "0". this will
+        # advertise to connecting users that the STS policy they have saved is no longer valid
+        enabled: false
+
+        # how long clients should be forced to use TLS for.
+        # setting this to a too-long time will mean bad things if you later remove your TLS.
+        # the default duration below is 1 month, 2 days and 5 minutes.
+        duration: 1mo2d5m
+
+        # tls port - you should be listening on this port above
+        port: 6697
+
+        # should clients include this STS policy when they ship their inbuilt preload lists?
+        preload: false
+
     # rest management API, for use with web interface
     rest-api:
         # whether the API is enabled or not
@@ -42,12 +61,13 @@ server:
     # generated using  "oragono genpasswd"
     #password: ""
 
-    # log level, one of error, warn, info, debug
-    log: debug
-
     # motd filename
     # if you change the motd, you should move it to ircd.motd
     motd: oragono.motd
+
+    # maximum length of clients' sendQ in bytes
+    # this should be big enough to hold /LIST and HELP replies
+    max-sendq: 16k
 
     # maximum number of connections per subnet
     connection-limits:
@@ -97,10 +117,10 @@ server:
             - "127.0.0.1/8"
             - "::1/128"
 
-# account/channel registration
-registration:
+# account options
+accounts:
     # account registration
-    accounts:
+    registration:
         # can users register new accounts?
         enabled: true
 
@@ -112,8 +132,24 @@ registration:
         enabled-callbacks:
             - none # no verification needed, will instantly register successfully
 
-# whether account authentication is enabled
-authentication-enabled: true
+        # allow multiple account registrations per connection
+        # this is for testing purposes and shouldn't be allowed on real networks
+        allow-multiple-per-connection: false
+
+    # is account authentication enabled?
+    authentication-enabled: true
+
+# channel options
+channels:
+    # modes that are set when new channels are created
+    # +n is no-external-messages and +t is op-only-topic
+    # see  /QUOTE HELP cmodes  for more channel modes
+    default-modes: +nt
+
+    # channel registration - requires an account
+    registration:
+        # can users register new channels?
+        enabled: true
 
 # operator classes
 oper-classes:
@@ -169,9 +205,62 @@ opers:
         # custom hostname
         vhost: "n"
 
+        # modes are the modes to auto-set upon opering-up
+        modes: +is acjknoqtux
+
         # password to login with /OPER command
         # generated using  "oragono genpasswd"
         password: JDJhJDA0JFoyY0paNGhVazR1ZWtXQlRMblU2Ny5OYzYwd0Z1MTRjMDc5dEdIMERONWVvWG0zbXNYdGth
+
+# logging, takes inspiration from Insp
+logging:
+    -
+        # how to log these messages
+        #
+        #   file    log to given target filename
+        #   stdout  log to stdout
+        #   stderr  log to stderr
+        method: file stderr
+
+        # filename to log to, if file method is selected
+        filename: ircd.log
+
+        # type(s) of logs to keep here. you can use - to exclude those types
+        #
+        # exclusions take precedent over inclusions, so if you exclude a type it will NEVER
+        # be logged, even if you explicitly include it
+        #
+        # useful types include:
+        #   *               everything (usually used with exclusing some types below)
+        #   accounts        account registration and authentication
+        #   channels        channel creation and operations
+        #   commands        command calling and operations
+        #   opers           oper actions, authentication, etc
+        #   password        password hashing and comparing
+        #   userinput       raw lines sent by users
+        #   useroutput      raw lines sent to users
+        type: "* -userinput -useroutput -localconnect -localconnect-ip"
+
+        # one of: debug info warn error
+        level: info
+    -
+        # avoid logging IP addresses to file
+        method: stderr
+        type: localconnect localconnect-ip
+        level: debug
+
+# debug options
+debug:
+    # enabling StackImpact profiling
+    stackimpact:
+        # whether to use StackImpact
+        enabled: false
+
+        # the AgentKey to use
+        agent-key: examplekeyhere
+
+        # the app name to report
+        app-name: Oragono
 
 # datastore configuration
 datastore:
