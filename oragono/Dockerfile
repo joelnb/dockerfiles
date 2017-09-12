@@ -1,4 +1,4 @@
-FROM joelnb/dumb-init-ubuntu:trusty
+FROM joelnb/dumb-init-ubuntu:xenial
 MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
 
 # This line:
@@ -16,10 +16,10 @@ RUN \
 		git \
 		golang \
 	&& \
-	mkdir -p "$GOPATH/src/github.com/DanielOaks" && \
-	cd "$GOPATH/src/github.com/DanielOaks" && \
-	git clone https://github.com/DanielOaks/oragono && \
-	cd "$GOPATH/src/github.com/DanielOaks/oragono" && \
+	mkdir -p "$GOPATH/src/github.com/oragono" && \
+	cd "$GOPATH/src/github.com/oragono" && \
+	git clone https://github.com/oragono/oragono && \
+	cd "$GOPATH/src/github.com/oragono/oragono" && \
 	git config --global http.https://gopkg.in.followRedirects true && \
 	git submodule init && \
 	git submodule update && \
@@ -27,8 +27,8 @@ RUN \
 	go build oragono.go && \
 	mv ./oragono /usr/local/bin && \
 	mkdir -p /etc/oragono && \
-	cp "$GOPATH/src/github.com/DanielOaks/oragono/oragono.yaml" "/etc/oragono/ircd.yaml" && \
-	cp "$GOPATH/src/github.com/DanielOaks/oragono/oragono.motd" "/etc/oragono/oragono.motd" && \
+	cp "$GOPATH/src/github.com/oragono/oragono/oragono.yaml" "/etc/oragono/ircd.yaml" && \
+	cp "$GOPATH/src/github.com/oragono/oragono/oragono.motd" "/etc/oragono/oragono.motd" && \
 	apt-get remove -y \
 		git \
 		golang \
