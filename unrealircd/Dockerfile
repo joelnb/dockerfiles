@@ -61,7 +61,7 @@ RUN chown unreal /tmp/config.cache \
 USER unreal
 
 RUN cd /tmp \
-	&& wget "https://sourceforge.net/projects/anope/files/anope-stable/Anope%20${ANOPE_VERSION}/anope-${ANOPE_VERSION}-source.tar.gz" \
+	&& wget "https://github.com/anope/anope/releases/download/${ANOPE_VERSION}/anope-${ANOPE_VERSION}-source.tar.gz" \
 	&& tar xvzf anope-${ANOPE_VERSION}-source.tar.gz \
 	&& cd anope-${ANOPE_VERSION}-source \
 	&& mv /tmp/config.cache . \
