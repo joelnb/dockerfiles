@@ -1,0 +1,9 @@
+INSTDIR="/home/unreal/unrealircd/services"
+RUNGROUP="unreal"
+UMASK=007
+DEBUG="no"
+USE_RUN_CC_PL="no"
+USE_PCH="no"
+EXTRA_INCLUDE_DIRS=""
+EXTRA_LIB_DIRS=""
+EXTRA_CONFIG_ARGS=""
