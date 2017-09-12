@@ -7,26 +7,42 @@ DIR=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
 
 ALL=
 COMMON_ARGS=
-TAG=":local"
+TAG="local"
 USERNAME=joelnb
 VERBOSE=
 
 build_all_images() {
 	while read -rd $'\0' imagedir; do
-		build_single_image "${imagedir}"
+		build_image_dir "${imagedir}"
 	done < <(find "${DIR}" -mindepth 1 -maxdepth 1 -not -name ".git" -type d -print0)
 }
 
-build_single_image() {
+build_image_dir() {
 	local path="${1:-}"
 
 	if [ -z "${path}" ]; then
 		return 1
 	fi
 
-	local image_name=$(basename "${path}")
+	local image_name="$(basename "${path}")"
+	local whole_tag="${TAG}"
 
-	eval docker build -t "${USERNAME}/${image_name}${TAG}" "${COMMON_ARGS}" "${path}"
+	if [ -n "${whole_tag}" ]; then
+		whole_tag=":${whole_tag}"
+	fi
+
+	echo "==>" docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
+	eval docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
+
+	for dir in $(ls "${path}" | grep Dockerfile- | sed 's/Dockerfile-//'); do
+		local this_image_tag=":${dir}"
+		if [ -n "${TAG}" ]; then
+			this_image_tag=":${TAG}-${dir}"
+		fi
+
+		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" "${path}"
+		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" "${path}"
+	done
 }
 
 usage() {
@@ -59,7 +75,7 @@ while getopts "hnt:u:V" OPTION; do
 			COMMON_ARGS="${COMMON_ARGS} --no-cache"
 			;;
 		t)
-			TAG=":$OPTARG"
+			TAG="$OPTARG"
 			;;
 		u)
 			USERNAME=$OPTARG
@@ -78,8 +94,13 @@ shift $(($OPTIND - 1))
 DIRECTORY="${1:-}"
 [ -n "${DIRECTORY}" ] && shift
 
+if [ -n "${1:-}" ]; then
+	echo "Unknown arguments: $@"
+	usage
+fi
+
 if [ -z "${DIRECTORY}" ]; then
 	build_all_images
 else
-	build_single_image "${DIRECTORY}"
+	build_image_dir "${DIRECTORY}"
 fi
