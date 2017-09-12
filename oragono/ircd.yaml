@@ -1,0 +1,214 @@
+# oragono IRCd config
+
+# network configuration
+network:
+    # name of the network
+    name: OragonoTest
+
+# server configuration
+server:
+    # server name
+    name: oragono.test
+
+    # addresses to listen on
+    listen:
+        - ":6667"
+        - "127.0.0.1:6668"
+        - "[::1]:6668"
+        - ":6697" # ssl port
+
+    # websocket listening port
+    ws-listen: ":8080"
+
+    # tls listeners
+    tls-listeners:
+        # listener on ":6697"
+        ":6697":
+            key: tls.key
+            cert: tls.crt
+
+    # rest management API, for use with web interface
+    rest-api:
+        # whether the API is enabled or not
+        enabled: false
+
+        # rest API listening port
+        listen: "localhost:8090"
+
+    # use ident protocol to get usernames
+    check-ident: true
+
+    # password to login to the server
+    # generated using  "oragono genpasswd"
+    #password: ""
+
+    # log level, one of error, warn, info, debug
+    log: debug
+
+    # motd filename
+    # if you change the motd, you should move it to ircd.motd
+    motd: oragono.motd
+
+    # maximum number of connections per subnet
+    connection-limits:
+        # whether to throttle limits or not
+        enabled: true
+
+        # how wide the cidr should be for IPv4
+        cidr-len-ipv4: 24
+
+        # how wide the cidr should be for IPv6
+        cidr-len-ipv6: 120
+
+        # maximum number of IPs per subnet (defined above by the cird length)
+        ips-per-subnet: 16
+
+        # IPs/networks which are exempted from connection limits
+        exempted:
+            - "127.0.0.1"
+            - "127.0.0.1/8"
+            - "::1/128"
+
+    # automated connection throttling
+    connection-throttling:
+        # whether to throttle connections or not
+        enabled: true
+
+        # how wide the cidr should be for IPv4
+        cidr-len-ipv4: 32
+
+        # how wide the cidr should be for IPv6
+        cidr-len-ipv6: 128
+
+        # how long to keep track of connections for
+        duration: 10m
+
+        # maximum number of connections, per subnet, within the given duration
+        max-connections: 12
+
+        # how long to ban offenders for, and the message to use
+        # after banning them, the number of connections is reset (which lets you use UNDLINE to unban people)
+        ban-duration: 10m
+        ban-message: You have attempted to connect too many times within a short duration. Wait a while, and you will be able to connect.
+
+        # IPs/networks which are exempted from connection limits
+        exempted:
+            - "127.0.0.1"
+            - "127.0.0.1/8"
+            - "::1/128"
+
+# account/channel registration
+registration:
+    # account registration
+    accounts:
+        # can users register new accounts?
+        enabled: true
+
+        # length of time a user has to verify their account before it can be re-registered
+        # default is 120 hours, or 5 days
+        verify-timeout: "120h"
+
+        # callbacks to allow
+        enabled-callbacks:
+            - none # no verification needed, will instantly register successfully
+
+# whether account authentication is enabled
+authentication-enabled: true
+
+# operator classes
+oper-classes:
+    # local operator
+    "local-oper":
+        # title shown in WHOIS
+        title: Local Operator
+
+        # capability names
+        capabilities:
+            - "oper:local_kill"
+            - "oper:local_ban"
+            - "oper:local_unban"
+
+    # network operator
+    "network-oper":
+        # title shown in WHOIS
+        title: Network Operator
+
+        # oper class this extends from
+        extends: "local-oper"
+
+        # capability names
+        capabilities:
+            - "oper:remote_kill"
+            - "oper:remote_ban"
+            - "oper:remote_unban"
+
+    # server admin
+    "server-admin":
+        # title shown in WHOIS
+        title: Server Admin
+
+        # oper class this extends from
+        extends: "local-oper"
+
+        # capability names
+        capabilities:
+            - "oper:rehash"
+            - "oper:die"
+            - "samode"
+
+# ircd operators
+opers:
+    # operator named 'joelnb'
+    joelnb:
+        # which capabilities this oper has access to
+        class: "server-admin"
+
+        # custom whois line
+        whois-line: is a cool dude
+
+        # custom hostname
+        vhost: "n"
+
+        # password to login with /OPER command
+        # generated using  "oragono genpasswd"
+        password: JDJhJDA0JFoyY0paNGhVazR1ZWtXQlRMblU2Ny5OYzYwd0Z1MTRjMDc5dEdIMERONWVvWG0zbXNYdGth
+
+# datastore configuration
+datastore:
+    # path to the datastore
+    path: ircd.db
+
+# limits - these need to be the same across the network
+limits:
+    # nicklen is the max nick length allowed
+    nicklen: 32
+
+    # channellen is the max channel length allowed
+    channellen: 64
+
+    # awaylen is the maximum length of an away message
+    awaylen: 500
+
+    # kicklen is the maximum length of a kick message
+    kicklen: 1000
+
+    # topiclen is the maximum length of a channel topic
+    topiclen: 1000
+
+    # maximum number of monitor entries a client can have
+    monitor-entries: 100
+
+    # whowas entries to store
+    whowas-entries: 100
+
+    # maximum length of channel lists (beI modes)
+    chan-list-modes: 60
+
+    # maximum length of IRC lines
+    # this should generally be 1024-2048, and will only apply when negotiated by clients
+    linelen:
+        # tags section
+        tags: 2048
+
+        # rest of the message
+        rest: 2048
