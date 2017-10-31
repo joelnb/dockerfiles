@@ -51,5 +51,10 @@ RUN \
 	chown -R gollum. /wiki && \
 	:
 
+RUN \
+	ln -s /etc/nginx/sites-available/gollum /etc/nginx/sites-enabled/ && \
+	rm /etc/nginx/sites-enabled/default && \
+	:
+
 COPY gollum /etc/nginx/sites-available/
 COPY config.ru /opt/gollum/

@@ -30,11 +30,11 @@ VOLUME /wiki
 WORKDIR /wiki
 EXPOSE 4567
 
-USER gollum
-CMD ["gollum", "--mathjax", "--port", "4567"]
-
 RUN \
 	groupadd -g 1000 gollum && \
 	useradd -u 1000 -g gollum gollum && \
 	chown -R gollum. /wiki && \
 	:
+
+USER gollum
+CMD ["gollum", "--mathjax", "--port", "4567"]
