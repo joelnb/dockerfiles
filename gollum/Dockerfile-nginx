@@ -3,6 +3,13 @@ FROM debian:jessie
 RUN \
 	export DEBIAN_FRONTEND=noninteractive && \
 	apt-get -y update && \
+	apt-get -y install --no-install-recommends \
+		apt-transport-https \
+		ca-certificates \
+	&& \
+	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 && \
+	echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main' > /etc/apt/sources.list.d/passenger.list && \
+	apt-get -y update && \
 	apt-get -y upgrade && \
 	apt-get -y install --no-install-recommends \
 		build-essential \
@@ -11,30 +18,38 @@ RUN \
 		ruby \
 		ruby-dev \
 		zlib1g-dev \
+		nginx-extras \
+		passenger \
 	&& \
 	gem install --no-ri --no-rdoc \
 		gollum \
 		github-markdown \
 	&& \
 	apt-get -y remove \
+		apt-transport-https \
+		ca-certificates \
 		build-essential \
 		ruby-dev \
 		zlib1g-dev \
 	&& \
 	apt-get -y autoremove && \
 	apt-get clean && \
+	rm /etc/apt/sources.list.d/passenger.list && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 	:
 
 VOLUME /wiki
 WORKDIR /wiki
-EXPOSE 4567
+EXPOSE 80
 
-USER gollum
-CMD ["gollum", "--mathjax", "--port", "4567"]
+ENV GOLLUM_DIR=/wiki
+CMD ["nginx", "-g", "daemon off;"]
 
 RUN \
 	groupadd -g 1000 gollum && \
 	useradd -u 1000 -g gollum gollum && \
 	chown -R gollum. /wiki && \
 	:
+
+COPY gollum /etc/nginx/sites-available/
+COPY config.ru /opt/gollum/
