@@ -2,6 +2,8 @@ server {
     listen 80;
     server_name gollum;
 
+    access_log /dev/stdout;
+
     # Tell Nginx and Passenger where your app's 'public' directory is
     root /wiki;
 

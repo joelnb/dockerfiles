@@ -15,19 +15,20 @@ RUN \
 		build-essential \
 		git-core \
 		libicu-dev \
+		nginx-extras \
 		ruby \
 		ruby-dev \
 		zlib1g-dev \
-		nginx-extras \
+	&& \
+	apt-get -y install \
 		passenger \
 	&& \
 	gem install --no-ri --no-rdoc \
-		gollum \
+		'gollum:<5' \
 		github-markdown \
 	&& \
 	apt-get -y remove \
 		apt-transport-https \
-		ca-certificates \
 		build-essential \
 		ruby-dev \
 		zlib1g-dev \
@@ -43,7 +44,7 @@ WORKDIR /wiki
 EXPOSE 80
 
 ENV GOLLUM_DIR=/wiki
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf"]
 
 RUN \
 	groupadd -g 1000 gollum && \
@@ -51,10 +52,12 @@ RUN \
 	chown -R gollum. /wiki && \
 	:
 
+COPY gollum /etc/nginx/sites-available/
+COPY nginx.conf /etc/nginx/
+COPY config.ru /opt/gollum/
+
 RUN \
 	ln -s /etc/nginx/sites-available/gollum /etc/nginx/sites-enabled/ && \
 	rm /etc/nginx/sites-enabled/default && \
+	passenger-config validate-install && \
 	:
-
-COPY gollum /etc/nginx/sites-available/
-COPY config.ru /opt/gollum/
