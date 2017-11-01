@@ -1,0 +1,4 @@
+source 'https://rubygems.org' do
+  gem 'gollum', '~> 4.1'
+  gem 'github-markdown'
+end

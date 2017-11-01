@@ -7,6 +7,8 @@ server {
     # Tell Nginx and Passenger where your app's 'public' directory is
     root /wiki;
 
+    rack_env development;
+
     passenger_app_root /opt/gollum;
     passenger_document_root /wiki;
 

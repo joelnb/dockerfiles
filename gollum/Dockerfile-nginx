@@ -1,32 +1,33 @@
 FROM debian:stretch
 
+COPY Gemfile /opt/gollum/
+WORKDIR /opt/gollum/
+
 RUN \
 	export DEBIAN_FRONTEND=noninteractive && \
 	apt-get -y update && \
 	apt-get -y install --no-install-recommends \
+		dirmngr \
+		gnupg \
 		apt-transport-https \
 		ca-certificates \
 	&& \
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 && \
-	echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger jessie main' > /etc/apt/sources.list.d/passenger.list && \
+	echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger stretch main' > /etc/apt/sources.list.d/passenger.list && \
 	apt-get -y update && \
 	apt-get -y upgrade && \
 	apt-get -y install --no-install-recommends \
 		build-essential \
 		git-core \
 		libicu-dev \
-		nginx-extras \
+		libnginx-mod-http-passenger \
+		nginx \
 		ruby \
+		ruby-bundler \
 		ruby-dev \
 		zlib1g-dev \
 	&& \
-	apt-get -y install \
-		passenger \
-	&& \
-	gem install --no-ri --no-rdoc \
-		'gollum:<5' \
-		github-markdown \
-	&& \
+	bundle install && \
 	apt-get -y remove \
 		apt-transport-https \
 		build-essential \
@@ -43,7 +44,7 @@ VOLUME /wiki
 WORKDIR /wiki
 EXPOSE 80
 
-ENV GOLLUM_DIR=/wiki
+ENV GOLLUM_DIR=/opt/gollum
 CMD ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf"]
 
 RUN \
