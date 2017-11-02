@@ -34,16 +34,17 @@ build_image_dir() {
 	echo "==>" docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
 	eval docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
 
-	for dockerfile in $(ls "${path}" | grep Dockerfile-); do
-		local variant="$(echo "${dockerfile}" | sed 's/Dockerfile-//')"
+	for dockerfile in $(find "${path}" -mindepth 2 -name Dockerfile); do
+		local dockerfile_dir="$(dirname "${dockerfile}")"
+		local variant="$(basename "${dockerfile_dir}")"
 
 		local this_image_tag=":${variant}"
 		if [ -n "${TAG}" ]; then
 			this_image_tag=":${TAG}-${variant}"
 		fi
 
-		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
-		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
+		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
+		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
 	done
 }
 
