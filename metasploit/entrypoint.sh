@@ -2,13 +2,15 @@
 
 set -e
 
-DB_PORT="${DB_PORT:-5432}"
+MSFDBPORT="${MSFDBPORT:-5432}"
 MSFUSER="${MSFUSER:-postgres}"
 MSFPASS="${MSFPASS:-postgres}"
 
-if ! [ -z "$DB_HOST" ]; then
-	if ! [ $(psql -h $DB_HOST:$DB_PORT -p 5432 -U "$MSFUSER" "$MSFPASS" -lqtA | grep "^msf|" | wc -l) == "1" ]; then
-		psql -h $DB_HOST:$DB_PORT -p 5432 -U "$MSFUSER" "$MSFPASS" -c "CREATE DATABASE msf OWNER $MSFUSER;"
+export PGPASSWORD="${MSFPASS}"
+
+if ! [ -z "$MSFDBHOST" ]; then
+	if ! [ $(psql -h $MSFDBHOST -p $MSFDBPORT -U "$MSFUSER" -lqtA | grep "^msf|" | wc -l) == "1" ]; then
+		psql -h $MSFDBHOST -p $MSFDBPORT -U "$MSFUSER" -c "CREATE DATABASE msf OWNER $MSFUSER;"
 	fi
 
 	cat > /usr/share/metasploit-framework/config/database.yml <<EOF
@@ -17,8 +19,8 @@ production:
   database: msf
   username: $MSFUSER
   password: $MSFPASS
-  host: $DB_HOST:$DB_PORT
-  port: 5432
+  host: $MSFDBHOST
+  port: $MSFDBPORT
   pool: 75
   timeout: 5
 EOF
