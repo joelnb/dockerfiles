@@ -46,6 +46,18 @@ build_image_dir() {
 		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
 		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
 	done
+
+	for dockerfile in $(ls "${path}" | grep Dockerfile-); do
+		local variant="$(echo "${dockerfile}" | sed 's/Dockerfile-//')"
+
+		local this_image_tag=":${variant}"
+		if [ -n "${TAG}" ]; then
+				this_image_tag=":${TAG}-${variant}"
+		fi
+
+		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
+		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
+	done
 }
 
 usage() {
