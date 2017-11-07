@@ -1,4 +1,5 @@
 FROM debian:stretch
+MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
 
 RUN \
 	export DEBIAN_FRONTEND=noninteractive && \
