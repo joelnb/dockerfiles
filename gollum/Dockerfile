@@ -41,4 +41,4 @@ RUN \
 	:
 
 USER gollum
-CMD ["gollum", "--mathjax", "--port", "4567"]
+CMD ["gollum", "--mathjax", "--port", "4567", "--css"]
