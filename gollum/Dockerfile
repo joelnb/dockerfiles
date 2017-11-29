@@ -9,6 +9,7 @@ RUN \
 		build-essential \
 		git-core \
 		libicu-dev \
+		python \
 		ruby \
 		ruby-dev \
 		zlib1g-dev \

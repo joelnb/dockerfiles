@@ -23,6 +23,7 @@ RUN \
 		libicu-dev \
 		libnginx-mod-http-passenger \
 		nginx \
+		python \
 		ruby \
 		ruby-bundler \
 		ruby-dev \
