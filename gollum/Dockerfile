@@ -10,6 +10,7 @@ RUN \
 		git-core \
 		libicu-dev \
 		python \
+		python-pip \
 		ruby \
 		ruby-dev \
 		zlib1g-dev \
@@ -18,6 +19,7 @@ RUN \
 		gollum \
 		github-markdown \
 	&& \
+	pip install docutils && \
 	apt-get -y remove \
 		build-essential \
 		ruby-dev \

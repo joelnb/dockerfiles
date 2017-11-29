@@ -24,12 +24,14 @@ RUN \
 		libnginx-mod-http-passenger \
 		nginx \
 		python \
+		python-pip \
 		ruby \
 		ruby-bundler \
 		ruby-dev \
 		zlib1g-dev \
 	&& \
 	bundle install && \
+	pip install docutils && \
 	apt-get -y remove \
 		apt-transport-https \
 		build-essential \
