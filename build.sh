@@ -24,7 +24,8 @@ build_image_dir() {
 		return 1
 	fi
 
-	local image_name="$(basename "${path}")"
+	local image_name
+	image_name="$(basename "${path}")"
 	local whole_tag="${TAG}"
 
 	if [ -n "${whole_tag}" ]; then
@@ -35,8 +36,10 @@ build_image_dir() {
 	eval docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
 
 	for dockerfile in $(find "${path}" -mindepth 2 -name Dockerfile); do
-		local dockerfile_dir="$(dirname "${dockerfile}")"
-		local variant="$(basename "${dockerfile_dir}")"
+		local dockerfile_dir
+		dockerfile_dir="$(dirname "${dockerfile}")"
+		local variant
+		variant="$(basename "${dockerfile_dir}")"
 
 		local this_image_tag=":${variant}"
 		if [ -n "${TAG}" ]; then
@@ -47,8 +50,11 @@ build_image_dir() {
 		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
 	done
 
-	for dockerfile in $(ls "${path}" | grep Dockerfile-); do
-		local variant="$(echo "${dockerfile}" | sed 's/Dockerfile-//')"
+	for dockerfile in "${path}"/Dockerfile-*; do
+		dockerfile="$(basename "${dockerfile}")"
+
+		local variant
+		variant="$(echo "${dockerfile}" | sed 's/Dockerfile-//')"
 
 		local this_image_tag=":${variant}"
 		if [ -n "${TAG}" ]; then
@@ -104,13 +110,13 @@ while getopts "hnt:u:V" OPTION; do
 	esac
 done
 
-shift $(($OPTIND - 1))
+shift $((OPTIND - 1))
 
 DIRECTORY="${1:-}"
 [ -n "${DIRECTORY}" ] && shift
 
 if [ -n "${1:-}" ]; then
-	echo "Unknown arguments: $@"
+	echo "Unknown arguments: $*"
 	usage
 fi
 
