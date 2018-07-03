@@ -50,7 +50,7 @@ build_image_dir() {
 		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
 	done
 
-	for dockerfile in "${path}"/Dockerfile-*; do
+	for dockerfile in $(find "${path}" -mindepth 1 -maxdepth 1 -name 'Dockerfile-*'); do
 		dockerfile="$(basename "${dockerfile}")"
 
 		local variant
