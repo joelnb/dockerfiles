@@ -5,7 +5,6 @@ IFS=$'\n\t'
 
 DIR=$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)
 
-ALL=
 COMMON_ARGS=
 TAG="local"
 USERNAME=joelnb
@@ -35,7 +34,7 @@ build_image_dir() {
 	echo "==>" docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
 	eval docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
 
-	for dockerfile in $(find "${path}" -mindepth 2 -name Dockerfile); do
+	while read -rd $'\0' dockerfile; do
 		local dockerfile_dir
 		dockerfile_dir="$(dirname "${dockerfile}")"
 		local variant
@@ -48,13 +47,13 @@ build_image_dir() {
 
 		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
 		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
-	done
+	done < <(find "${path}" -mindepth 2 -name 'Dockerfile' -print0)
 
-	for dockerfile in $(find "${path}" -mindepth 1 -maxdepth 1 -name 'Dockerfile-*'); do
+	while read -rd $'\0' dockerfile; do
 		dockerfile="$(basename "${dockerfile}")"
 
 		local variant
-		variant="$(echo "${dockerfile}" | sed 's/Dockerfile-//')"
+		variant="${dockerfile//Dockerfile-/}"
 
 		local this_image_tag=":${variant}"
 		if [ -n "${TAG}" ]; then
@@ -63,7 +62,7 @@ build_image_dir() {
 
 		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
 		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
-	done
+	done < <(find "${path}" -mindepth 1 -maxdepth 1 -name 'Dockerfile-*' -print0)
 }
 
 usage() {
