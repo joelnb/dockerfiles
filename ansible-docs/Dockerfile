@@ -20,7 +20,7 @@ RUN \
     :
 
 # The version of ansible to checkout from git
-ARG ANSIBLE_VERSION=master
+ARG ANSIBLE_VERSION=devel
 
 RUN \
     git clone https://github.com/ansible/ansible && \
@@ -30,5 +30,15 @@ RUN \
     :
 
 WORKDIR /build/ansible/docs/docsite/_build/html
+
+
+FROM alpine:latest
+LABEL maintainer="joelnbarnham@gmail.com"
+
+RUN apk --no-cache add python
+
+WORKDIR /docs
+COPY --from=0 /build/ansible/docs/docsite/_build/html .
+
 EXPOSE 8000
 CMD python -m SimpleHTTPServer
