@@ -9,7 +9,7 @@ MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
 #   --name syncthing \
 #   joelnb/syncthing
 
-ARG SYNCTHING_VERSION=0.14.45
+ARG SYNCTHING_VERSION=0.14.49
 
 RUN \
 	export DEBIAN_FRONTEND=noninteractive && \
