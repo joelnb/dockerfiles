@@ -33,4 +33,4 @@ RUN \
 FROM httpd:alpine
 LABEL maintainer="joelnbarnham@gmail.com"
 
-COPY --from=0 /build/cpython/docs/docsite/_build/html/ /usr/local/apache2/htdocs/
+COPY --from=0 /build/ansible/docs/docsite/_build/html/ /usr/local/apache2/htdocs/
