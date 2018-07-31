@@ -26,19 +26,11 @@ RUN \
     git clone https://github.com/ansible/ansible && \
     cd ansible/docs/docsite && \
     git checkout "${ANSIBLE_VERSION}" && \
-    make all && \
+    make htmldocs && \
     :
 
-WORKDIR /build/ansible/docs/docsite/_build/html
 
-
-FROM alpine:latest
+FROM httpd:alpine
 LABEL maintainer="joelnbarnham@gmail.com"
 
-RUN apk --no-cache add python
-
-WORKDIR /docs
-COPY --from=0 /build/ansible/docs/docsite/_build/html .
-
-EXPOSE 8000
-CMD python -m SimpleHTTPServer
+COPY --from=0 /build/cpython/docs/docsite/_build/html/ /usr/local/apache2/htdocs/
