@@ -1,5 +1,5 @@
 FROM joelnb/dumb-init-alpine
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+LABEL maintainer="joelnbarnham@gmail.com"
 
 ENV HOSTESS_VERSION=v0.2.0
 

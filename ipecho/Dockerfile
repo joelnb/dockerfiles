@@ -1,5 +1,5 @@
 FROM node:8-slim
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+LABEL maintainer="joelnbarnham@gmail.com"
 
 ENV TINI_VERSION v0.15.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /sbin/tini

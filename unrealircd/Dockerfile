@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+LABEL maintainer="joelnbarnham@gmail.com"
 
 ENV UNREAL_VERSION=4.0.3.1
 ENV ANOPE_VERSION=2.0.2

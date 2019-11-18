@@ -1,5 +1,5 @@
 FROM r-base:3.4.1
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
 	Rscript -e "install.packages('ggplot2')" && \

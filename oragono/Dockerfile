@@ -1,5 +1,5 @@
 FROM joelnb/dumb-init-ubuntu:xenial
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+LABEL maintainer="joelnbarnham@gmail.com"
 
 # This line:
 #   git config --global http.https://gopkg.in.followRedirects true

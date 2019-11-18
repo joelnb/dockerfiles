@@ -1,5 +1,5 @@
 FROM ubuntu:trusty
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
 	apt-get update -q && \

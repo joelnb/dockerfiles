@@ -1,5 +1,5 @@
 FROM alpine:3.6
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+LABEL maintainer="joelnbarnham@gmail.com"
 
 ENV NOKOGIRI_USE_SYSTEM_LIBRARIES=1
 

@@ -1,5 +1,5 @@
 FROM node:8-slim
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN npm install -g tiddlywiki
 
