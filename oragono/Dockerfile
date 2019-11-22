@@ -1,4 +1,4 @@
-FROM joelnb/dumb-init-ubuntu:xenial
+FROM joelnb/dumb-init-ubuntu:bionic
 LABEL maintainer="joelnbarnham@gmail.com"
 
 # This line:
