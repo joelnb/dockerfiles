@@ -32,7 +32,7 @@ build_image_dir() {
 	fi
 
 	echo "==>" docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
-	eval docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
+	eval sudo docker build -t "${USERNAME}/${image_name}${whole_tag}""${COMMON_ARGS}" "${path}"
 
 	while read -rd $'\0' dockerfile; do
 		local dockerfile_dir
@@ -46,7 +46,7 @@ build_image_dir() {
 		fi
 
 		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
-		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
+		eval sudo docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${dockerfile}" "${dockerfile_dir}"
 	done < <(find "${path}" -mindepth 2 -name 'Dockerfile' -print0)
 
 	while read -rd $'\0' dockerfile; do
@@ -61,7 +61,7 @@ build_image_dir() {
 		fi
 
 		echo "==>" docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
-		eval docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
+		eval sudo docker build -t "${USERNAME}/${image_name}${this_image_tag}""${COMMON_ARGS}" -f "${path}/${dockerfile}" "${path}"
 	done < <(find "${path}" -mindepth 1 -maxdepth 1 -name 'Dockerfile-*' -print0)
 }
 

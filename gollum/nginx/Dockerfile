@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 LABEL maintainer="joelnbarnham@gmail.com"
 
 COPY Gemfile /opt/gollum/
@@ -14,15 +14,18 @@ RUN \
 		ca-certificates \
 	&& \
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 && \
-	echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger stretch main' > /etc/apt/sources.list.d/passenger.list && \
+	echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger buster main' > /etc/apt/sources.list.d/passenger.list && \
 	apt-get -y update && \
 	apt-get -y upgrade && \
 	apt-get -y install --no-install-recommends \
 		build-essential \
+		cmake \
 		git-core \
 		libicu-dev \
 		libnginx-mod-http-passenger \
+		libssl-dev \
 		nginx \
+		pkg-config \
 		python \
 		python-pip \
 		ruby \

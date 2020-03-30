@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
@@ -7,8 +7,11 @@ RUN \
 	apt-get -y upgrade && \
 	apt-get -y install --no-install-recommends \
 		build-essential \
+		cmake \
 		git-core \
 		libicu-dev \
+		libssl-dev \
+		pkg-config \
 		python \
 		python-pip \
 		ruby \
