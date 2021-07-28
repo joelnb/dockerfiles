@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM joelnb/dumb-init-alpine:3
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
@@ -7,3 +7,5 @@ RUN \
 		apache2-utils \
 	&& \
 	:
+
+CMD ["/usr/sbin/httpd", "-DFOREGROUND"]
