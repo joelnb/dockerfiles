@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM ubuntu:focal
 LABEL maintainer="joelnbarnham@gmail.com"
 
 WORKDIR /build
@@ -9,6 +9,7 @@ RUN \
     apt-get -y install --no-install-recommends \
         git \
         make \
+        python-is-python3 \
         python3 \
         python3-pip \
         python3-sphinx \
@@ -22,14 +23,14 @@ RUN \
 
 RUN \
     pip3 install --no-cache-dir sphinx-notfound-page && \
+    git clone https://github.com/ansible/ansible && \
     :
 
 # The version of ansible to checkout from git
-ARG ANSIBLE_VERSION=devel
+ARG ANSIBLE_VERSION=stable-2.9
 
 RUN \
-    git clone https://github.com/ansible/ansible && \
-    cd ansible/docs/docsite && \
+    cd ansible && \
     git checkout "${ANSIBLE_VERSION}" && \
     make htmldocs && \
     :
