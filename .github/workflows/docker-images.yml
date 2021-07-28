@@ -22,7 +22,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push Ansible Docs
+      - name: Build and push Ansible Docs Image
         id: docker_build_ansible_docs
         uses: docker/build-push-action@v2
         with:

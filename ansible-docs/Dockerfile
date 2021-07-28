@@ -25,15 +25,15 @@ RUN \
 RUN \
     pip3 install --no-cache-dir sphinx-notfound-page && \
     git clone https://github.com/ansible/ansible && \
-    pip3 install -r ansible/docs/docsite/known_good_reqs.txt && \
     :
 
 # The version of ansible to checkout from git
-ARG ANSIBLE_VERSION=devel
+ARG ANSIBLE_DOCS_VERSION=devel
 
 RUN \
     cd ansible && \
-    git checkout "${ANSIBLE_VERSION}" && \
+    git checkout "${ANSIBLE_DOCS_VERSION}" && \
+    pip3 install -r docs/docsite/known_good_reqs.txt && \
     make webdocs && \
     :
 
