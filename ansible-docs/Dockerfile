@@ -14,6 +14,7 @@ RUN \
         python3-pip \
         python3-sphinx \
         python3-straight.plugin \
+        python3-venv \
         python3-yaml \
     && \
     apt-get -y autoremove && \
@@ -24,10 +25,11 @@ RUN \
 RUN \
     pip3 install --no-cache-dir sphinx-notfound-page && \
     git clone https://github.com/ansible/ansible && \
+    pip3 install -r ansible/docs/docsite/known_good_reqs.txt && \
     :
 
 # The version of ansible to checkout from git
-ARG ANSIBLE_VERSION=stable-2.9
+ARG ANSIBLE_VERSION=devel
 
 RUN \
     cd ansible && \
