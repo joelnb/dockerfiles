@@ -32,7 +32,7 @@ ARG ANSIBLE_VERSION=stable-2.9
 RUN \
     cd ansible && \
     git checkout "${ANSIBLE_VERSION}" && \
-    make htmldocs && \
+    make webdocs && \
     :
 
 
