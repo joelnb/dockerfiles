@@ -22,7 +22,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push Ansible Docs Image
+      - name: Build and push Ansible Docs image
         id: docker_build_ansible_docs
         uses: docker/build-push-action@v2
         with:
@@ -32,8 +32,18 @@ jobs:
           file: ./ansible-docs/Dockerfile
       - name: Image digest
         run: echo ${{ steps.docker_build_ansible_docs.outputs.digest }}
-      - name: Build and push Get Deb Image (latest)
-        id: docker_build_ansible_docs
+      - name: Build and push dnsmasq image
+        id: docker_build_dnsmasq
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: joelnb/dnsmasq:latest
+          context: ./dnsmasq
+          file: ./dnsmasq/Dockerfile
+      - name: Image digest
+        run: echo ${{ steps.docker_build_dnsmasq.outputs.digest }}
+      - name: Build and push Get Deb image (latest)
+        id: docker_build_get_deb_latest
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -41,39 +51,39 @@ jobs:
           context: ./get-deb
           file: ./get-deb/Dockerfile
       - name: Image digest
-        run: echo ${{ steps.docker_build_ansible_docs.outputs.digest }}
-      - name: Build and push Get Deb Image (bionic)
-        id: docker_build_ansible_docs
+        run: echo ${{ steps.docker_build_get_deb_latest.outputs.digest }}
+      - name: Build and push Get Deb image (xenial)
+        id: docker_build_get_deb_xenial
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: joelnb/get-deb:xenial
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-xenial
+      - name: Image digest
+        run: echo ${{ steps.docker_build_get_deb_xenial.outputs.digest }}
+      - name: Build and push Get Deb image (bionic)
+        id: docker_build_get_deb_bionic
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: joelnb/get-deb:bionic
           context: ./get-deb
-          file: ./get-deb/Dockerfile
+          file: ./get-deb/Dockerfile-bionic
       - name: Image digest
-        run: echo ${{ steps.docker_build_ansible_docs.outputs.digest }}
-      - name: Build and push Get Deb Image (focal)
-        id: docker_build_ansible_docs
+        run: echo ${{ steps.docker_build_get_deb_bionic.outputs.digest }}
+      - name: Build and push Get Deb image (focal)
+        id: docker_build_get_deb_focal
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: joelnb/get-deb:focal
           context: ./get-deb
-          file: ./get-deb/Dockerfile
+          file: ./get-deb/Dockerfile-focal
       - name: Image digest
-        run: echo ${{ steps.docker_build_ansible_docs.outputs.digest }}
-      - name: Build and push Get Deb Image (bullseye)
-        id: docker_build_ansible_docs
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: joelnb/get-deb:bullseye
-          context: ./get-deb
-          file: ./get-deb/Dockerfile
-      - name: Image digest
-        run: echo ${{ steps.docker_build_ansible_docs.outputs.digest }}
-      - name: Build and push Get Deb Image (debian-latest)
-        id: docker_build_ansible_docs
+        run: echo ${{ steps.docker_build_get_deb_focal.outputs.digest }}
+      - name: Build and push Get Deb image (debian-latest)
+        id: docker_build_get_deb_debian_latest
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -81,4 +91,24 @@ jobs:
           context: ./get-deb
           file: ./get-deb/Dockerfile-debian-latest
       - name: Image digest
-        run: echo ${{ steps.docker_build_ansible_docs.outputs.digest }}
+        run: echo ${{ steps.docker_build_get_deb_debian_latest.outputs.digest }}
+      - name: Build and push Get Deb image (stretch)
+        id: docker_build_get_deb_stretch
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: joelnb/get-deb:stretch
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-stretch
+      - name: Image digest
+        run: echo ${{ steps.docker_build_get_deb_stretch.outputs.digest }}
+      - name: Build and push Get Deb image (bullseye)
+        id: docker_build_get_deb_bullseye
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: joelnb/get-deb:bullseye
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-bullseye
+      - name: Image digest
+        run: echo ${{ steps.docker_build_get_deb_bullseye.outputs.digest }}
