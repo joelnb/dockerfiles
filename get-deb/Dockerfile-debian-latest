@@ -1,5 +1,5 @@
-FROM ubuntu:trusty
-MAINTAINER Joel Noyce Barnham <joelnbarnham@gmail.com>
+FROM debian:latest
+LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
 	export DEBIAN_FRONTEND=noninteractive && \

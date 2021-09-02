@@ -4,7 +4,7 @@ A containerised [Dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) with th
 
 ## Example Usage
 
-```
+```bash
 docker run -d --name dnsmasq -p 53:53 -p 53:53/udp joelnb/dnsmasq
 docker exec -it dnsmasq hostess add example.com 1.2.3.4
 ```
