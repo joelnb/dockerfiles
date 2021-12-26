@@ -7,4 +7,4 @@ RUN apk add --update \
 	rm -rf /var/cache/apk/* && \
 	:
 
-ENTRYPOINT ["dum", "--", "ssh"]
+ENTRYPOINT ["ssh"]
