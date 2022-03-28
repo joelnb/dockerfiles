@@ -13,7 +13,7 @@ VERBOSE=
 build_all_images() {
 	while read -rd $'\0' imagedir; do
 		build_image_dir "${imagedir}"
-	done < <(find "${DIR}" -mindepth 1 -maxdepth 1 -not -name ".git" -type d -print0)
+	done < <(find "${DIR}" -mindepth 1 -maxdepth 1 -not -name ".git*" -type d -print0 | sort)
 }
 
 build_image_dir() {
