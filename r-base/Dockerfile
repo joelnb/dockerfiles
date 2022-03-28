@@ -1,4 +1,4 @@
-FROM r-base:3.4.1
+FROM r-base:4.1.3
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
