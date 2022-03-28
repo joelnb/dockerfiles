@@ -1,7 +1,7 @@
-FROM alpine:3.6
+FROM alpine:3.14
 LABEL maintainer="joelnbarnham@gmail.com"
 
-ENV NGINX_VERSION=1.10.1
+ENV NGINX_VERSION=1.21.6
 
 RUN \
 	apk add --no-cache --virtual build-deps \
@@ -13,7 +13,7 @@ RUN \
 	apk add --no-cache \
 		openssl-dev \
 		pcre-dev \
-		python \
+		python3 \
 		zlib-dev \
 	&& \
 	apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
