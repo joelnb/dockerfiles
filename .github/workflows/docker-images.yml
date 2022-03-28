@@ -218,20 +218,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push Gollum image (latest)
-        id: docker_build_gollum_latest
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: joelnb/gollum:latest
-          context: ./gollum
-          file: ./gollum/Dockerfile
-      - name: Image digest
-        run: echo ${{ steps.docker_build_gollum_latest.outputs.digest }}
-      - name: Scan image
-        uses: anchore/scan-action@v3
-        with:
-          image: joelnb/gollum:latest
       - name: Build and push Gollum image (nginx)
         id: docker_build_gollum_nginx
         uses: docker/build-push-action@v2
@@ -246,3 +232,17 @@ jobs:
         uses: anchore/scan-action@v3
         with:
           image: joelnb/gollum:nginx
+      - name: Build and push Gollum image (latest)
+        id: docker_build_gollum_latest
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: joelnb/gollum:latest
+          context: ./gollum
+          file: ./gollum/Dockerfile
+      - name: Image digest
+        run: echo ${{ steps.docker_build_gollum_latest.outputs.digest }}
+      - name: Scan image
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/gollum:latest
