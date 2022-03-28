@@ -1,6 +1,9 @@
 FROM debian:buster
 LABEL maintainer="joelnbarnham@gmail.com"
 
+COPY nginx/Gemfile /opt/gollum/
+WORKDIR /opt/gollum/
+
 RUN \
 	export DEBIAN_FRONTEND=noninteractive && \
 	apt-get -y update && \
@@ -15,13 +18,11 @@ RUN \
 		python \
 		python-pip \
 		ruby \
+		ruby-bundler \
 		ruby-dev \
 		zlib1g-dev \
 	&& \
-	gem install --no-ri --no-rdoc \
-		gollum \
-		github-markdown \
-	&& \
+	bundle install && \
 	pip install docutils && \
 	apt-get -y remove \
 		build-essential \
@@ -44,4 +45,5 @@ RUN \
 	:
 
 USER gollum
-CMD ["gollum", "--mathjax", "--port", "4567", "--css"]
+# Temporary fix for https://github.com/gollum/gollum/issues/1699 until new gollum release
+CMD ["ruby", "-Eutf-8", "/usr/local/bin/gollum", "--mathjax", "--port", "4567", "--css"]
