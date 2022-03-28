@@ -4,37 +4,37 @@ LABEL maintainer="joelnbarnham@gmail.com"
 WORKDIR /build
 
 RUN \
-    export DEBIAN_FRONTEND=noninteractive && \
-    apt-get -y update && \
-    apt-get -y install --no-install-recommends \
-        git \
-        make \
-        python3 \
-        python3-pip \
-        python3-sphinx \
-        python3-venv \
-        python3-yaml \
-    && \
-    apt-get -y autoremove && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    :
+	export DEBIAN_FRONTEND=noninteractive && \
+	apt-get -y update && \
+	apt-get -y install --no-install-recommends \
+		git \
+		make \
+		python3 \
+		python3-pip \
+		python3-sphinx \
+		python3-venv \
+		python3-yaml \
+	&& \
+	apt-get -y autoremove && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+	:
 
 # The version of cpython to checkout from git
-ARG PYTHON_VERSION=master
+ARG PYTHON_VERSION=main
 
 RUN \
-    git clone https://github.com/python/cpython && \
-    cd cpython/Doc && \
-    git checkout "${PYTHON_VERSION}" && \
-    :
+	git clone https://github.com/python/cpython && \
+	cd cpython/Doc && \
+	git checkout "${PYTHON_VERSION}" && \
+	:
 
 RUN \
-    cd cpython/Doc && \
-    make venv && \
-    . ./venv/bin/activate && \
-    make html && \
-    :
+	cd cpython/Doc && \
+	make venv && \
+	. ./venv/bin/activate && \
+	make html && \
+	:
 
 
 FROM httpd:alpine
