@@ -37,7 +37,7 @@ RUN groupadd -r unreal \
 USER unreal
 
 RUN cd /tmp \
-	&& gpg --keyserver keys.gnupg.net --recv-keys 0xA7A21B0A108FF4A9 \
+	&& gpg --keyserver keyserver.ubuntu.com --recv-keys 0xA7A21B0A108FF4A9 \
 	&& bash -c 'wget "https://www.unrealircd.org/unrealircd${UNREAL_VERSION:0:1}/unrealircd-${UNREAL_VERSION}.tar.gz"' \
 	&& bash -c 'wget "https://www.unrealircd.org/unrealircd${UNREAL_VERSION:0:1}/unrealircd-${UNREAL_VERSION}.tar.gz.asc"' \
 	&& tar xvzf unrealircd-${UNREAL_VERSION}.tar.gz \
