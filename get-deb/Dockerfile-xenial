@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:16.04
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \

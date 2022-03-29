@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:20.04
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
