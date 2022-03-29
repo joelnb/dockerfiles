@@ -23,7 +23,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 		zlib1g \
 		zlib1g-dev \
 		zlibc \
-	&& gpg --keyserver keys.gnupg.net --recv-keys 0xA7A21B0A108FF4A9 \
+	&& gpg --keyserver keyserver.ubuntu.com --recv-keys 0xA7A21B0A108FF4A9 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 	;
