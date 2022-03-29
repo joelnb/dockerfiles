@@ -1,4 +1,4 @@
-FROM joelnb/dumb-init-alpine
+FROM joelnb/dumb-init-alpine:3
 LABEL maintainer="joelnbarnham@gmail.com"
 
 ENV HOSTESS_VERSION=v0.2.0

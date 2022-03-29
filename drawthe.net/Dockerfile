@@ -1,14 +1,14 @@
-FROM joelnb/dumb-init-alpine
+FROM joelnb/dumb-init-alpine:3
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
-    apk add --no-cache \
-        git \
-        nginx \
-    && \
-    git clone --depth 1 https://github.com/cidrblock/drawthe.net.git /var/www/html && \
-    mkdir -pv /opt/httpd/conf/ && \
-    :
+	apk add --no-cache \
+		git \
+		nginx \
+	&& \
+	git clone --depth 1 https://github.com/cidrblock/drawthe.net.git /var/www/html && \
+	mkdir -pv /opt/httpd/conf/ && \
+	:
 
 COPY ["nginx.conf", "/etc/nginx/nginx.conf"]
 
