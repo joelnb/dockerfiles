@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:9
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \

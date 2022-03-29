@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.14
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN apk add --update \
