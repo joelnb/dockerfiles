@@ -1,4 +1,4 @@
-FROM debian:8
+FROM debian:11
 LABEL maintainer="joelnbarnham@gmail.com"
 
 ENV UNREAL_VERSION=4.0.3.1
