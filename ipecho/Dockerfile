@@ -1,4 +1,4 @@
-FROM node:8-slim
+FROM node:17-slim
 LABEL maintainer="joelnbarnham@gmail.com"
 
 ENV TINI_VERSION v0.15.0
