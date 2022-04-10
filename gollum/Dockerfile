@@ -1,4 +1,4 @@
-FROM debian:10
+FROM debian:11
 LABEL maintainer="joelnbarnham@gmail.com"
 
 COPY nginx/Gemfile /opt/gollum/
@@ -15,8 +15,9 @@ RUN \
 		libicu-dev \
 		libssl-dev \
 		pkg-config \
-		python \
-		python-pip \
+		python-is-python3 \
+		python3 \
+		python3-pip \
 		ruby \
 		ruby-bundler \
 		ruby-dev \

@@ -1,8 +1,8 @@
-FROM debian:8
+FROM debian:11
 LABEL maintainer="joelnbarnham@gmail.com"
 
-ENV UNREAL_VERSION=4.0.3.1
-ENV ANOPE_VERSION=2.0.2
+ENV UNREAL_VERSION=6.0.3
+ENV ANOPE_VERSION=2.0.6
 
 RUN export DEBIAN_FRONTEND=noninteractive \
 	&& apt-get update \
@@ -22,7 +22,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 		wget \
 		zlib1g \
 		zlib1g-dev \
-		zlibc \
 	&& gpg --keyserver keyserver.ubuntu.com --recv-keys 0xA7A21B0A108FF4A9 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
@@ -38,8 +37,8 @@ USER unreal
 
 RUN cd /tmp \
 	&& gpg --keyserver keyserver.ubuntu.com --recv-keys 0xA7A21B0A108FF4A9 \
-	&& bash -c 'wget "https://www.unrealircd.org/unrealircd${UNREAL_VERSION:0:1}/unrealircd-${UNREAL_VERSION}.tar.gz"' \
-	&& bash -c 'wget "https://www.unrealircd.org/unrealircd${UNREAL_VERSION:0:1}/unrealircd-${UNREAL_VERSION}.tar.gz.asc"' \
+	&& bash -c 'wget "https://www.unrealircd.org/downloads/unrealircd-${UNREAL_VERSION}.tar.gz"' \
+	&& bash -c 'wget "https://www.unrealircd.org/downloads/unrealircd-${UNREAL_VERSION}.tar.gz.asc"' \
 	&& tar xvzf unrealircd-${UNREAL_VERSION}.tar.gz \
 	&& gpg --verify unrealircd-${UNREAL_VERSION}.tar.gz.asc unrealircd-${UNREAL_VERSION}.tar.gz \
 	&& cd unrealircd-${UNREAL_VERSION} \
