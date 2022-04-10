@@ -14,7 +14,7 @@ RUN \
 		ca-certificates \
 	&& \
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 && \
-	echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger buster main' > /etc/apt/sources.list.d/passenger.list && \
+	echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger bullseye main' > /etc/apt/sources.list.d/passenger.list && \
 	apt-get -y update && \
 	apt-get -y upgrade && \
 	apt-get -y install --no-install-recommends \
@@ -26,8 +26,9 @@ RUN \
 		libssl-dev \
 		nginx \
 		pkg-config \
-		python \
-		python-pip \
+		python-is-python3 \
+		python3 \
+		python3-pip \
 		ruby \
 		ruby-bundler \
 		ruby-dev \

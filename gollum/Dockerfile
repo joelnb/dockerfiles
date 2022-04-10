@@ -15,8 +15,9 @@ RUN \
 		libicu-dev \
 		libssl-dev \
 		pkg-config \
-		python \
-		python-pip \
+		python-is-python3 \
+		python3 \
+		python3-pip \
 		ruby \
 		ruby-bundler \
 		ruby-dev \
