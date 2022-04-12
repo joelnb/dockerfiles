@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:focal
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
