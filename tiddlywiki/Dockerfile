@@ -1,4 +1,4 @@
-FROM node:8-slim
+FROM node:18-slim
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN npm install -g tiddlywiki
