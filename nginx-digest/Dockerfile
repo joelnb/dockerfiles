@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.16
 LABEL maintainer="joelnbarnham@gmail.com"
 
 ENV NGINX_VERSION=1.21.6
