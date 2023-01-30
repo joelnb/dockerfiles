@@ -24,6 +24,7 @@ RUN \
 		libicu-dev \
 		libnginx-mod-http-passenger \
 		libssl-dev \
+		libyaml-dev \
 		nginx \
 		pkg-config \
 		python-is-python3 \

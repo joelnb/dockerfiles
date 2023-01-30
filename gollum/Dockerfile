@@ -14,6 +14,7 @@ RUN \
 		git-core \
 		libicu-dev \
 		libssl-dev \
+		libyaml-dev \
 		pkg-config \
 		python-is-python3 \
 		python3 \
