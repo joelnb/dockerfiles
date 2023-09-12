@@ -155,21 +155,6 @@ jobs:
         with:
           image: joelnb/get-deb:debian-latest
           fail-build: false
-      - name: Build and push Get Deb image (stretch)
-        id: docker_build_get_deb_stretch
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          tags: joelnb/get-deb:stretch
-          context: ./get-deb
-          file: ./get-deb/Dockerfile-stretch
-      - name: Image digest
-        run: echo ${{ steps.docker_build_get_deb_stretch.outputs.digest }}
-      - name: Scan image
-        uses: anchore/scan-action@v3
-        with:
-          image: joelnb/get-deb:stretch
-          fail-build: false
       - name: Build and push Get Deb image (bullseye)
         id: docker_build_get_deb_bullseye
         uses: docker/build-push-action@v5
@@ -184,6 +169,21 @@ jobs:
         uses: anchore/scan-action@v3
         with:
           image: joelnb/get-deb:bullseye
+          fail-build: false
+      - name: Build and push Get Deb image (buster)
+        id: docker_build_get_deb_buster
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: joelnb/get-deb:buster
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-buster
+      - name: Image digest
+        run: echo ${{ steps.docker_build_get_deb_buster.outputs.digest }}
+      - name: Scan image
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:buster
           fail-build: false
   docker_gollum:
     runs-on: ubuntu-latest
