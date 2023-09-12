@@ -1,4 +1,4 @@
-FROM debian:11
+FROM debian:12
 LABEL maintainer="joelnbarnham@gmail.com"
 
 WORKDIR /build
