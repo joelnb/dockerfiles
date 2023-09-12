@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push apache image
         id: docker_build_apache
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/apache:latest
@@ -53,7 +53,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push dnsmasq image
         id: docker_build_dnsmasq
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/dnsmasq:latest
@@ -82,7 +82,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push Get Deb image (latest)
         id: docker_build_get_deb_latest
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/get-deb:latest
@@ -97,7 +97,7 @@ jobs:
           fail-build: false
       - name: Build and push Get Deb image (xenial)
         id: docker_build_get_deb_xenial
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/get-deb:xenial
@@ -112,7 +112,7 @@ jobs:
           fail-build: false
       - name: Build and push Get Deb image (bionic)
         id: docker_build_get_deb_bionic
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/get-deb:bionic
@@ -127,7 +127,7 @@ jobs:
           fail-build: false
       - name: Build and push Get Deb image (focal)
         id: docker_build_get_deb_focal
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/get-deb:focal
@@ -142,7 +142,7 @@ jobs:
           fail-build: false
       - name: Build and push Get Deb image (debian-latest)
         id: docker_build_get_deb_debian_latest
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/get-deb:debian-latest
@@ -157,7 +157,7 @@ jobs:
           fail-build: false
       - name: Build and push Get Deb image (stretch)
         id: docker_build_get_deb_stretch
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/get-deb:stretch
@@ -172,7 +172,7 @@ jobs:
           fail-build: false
       - name: Build and push Get Deb image (bullseye)
         id: docker_build_get_deb_bullseye
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/get-deb:bullseye
@@ -201,7 +201,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push Gollum image (nginx)
         id: docker_build_gollum_nginx
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/gollum:nginx
@@ -216,7 +216,7 @@ jobs:
           fail-build: false
       - name: Build and push Gollum image (latest)
         id: docker_build_gollum_latest
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/gollum:latest
@@ -245,7 +245,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push ipecho image
         id: docker_build_ipecho
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/ipecho:latest
@@ -274,7 +274,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push latex image
         id: docker_build_latex
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/latex:latest
@@ -303,7 +303,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push nginx-digest image
         id: docker_build_nginx-digest
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/nginx-digest:latest
@@ -332,7 +332,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push ssh image (trusty)
         id: docker_build_ssh_trusty
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/ssh:trusty
@@ -347,7 +347,7 @@ jobs:
           fail-build: false
       - name: Build and push ssh image (xenial)
         id: docker_build_ssh_xenial
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/ssh:xenial
@@ -362,7 +362,7 @@ jobs:
           fail-build: false
       - name: Build and push ssh image (latest)
         id: docker_build_ssh_latest
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/ssh:latest
@@ -391,7 +391,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push tiddlywiki image
         id: docker_build_tiddlywiki
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/tiddlywiki:latest
@@ -420,7 +420,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push unrealircd image
         id: docker_build_unrealircd
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/unrealircd:latest
