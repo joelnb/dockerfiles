@@ -48,7 +48,7 @@ jobs:
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/gollum:nginx
-          context: ./gollum
+          context: ./gollum/nginx
           file: ./gollum/nginx/Dockerfile
       - name: Image digest (nginx)
         run: echo ${{ steps.docker_build_push_gollum_nginx.outputs.digest }}

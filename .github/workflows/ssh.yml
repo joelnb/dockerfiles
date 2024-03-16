@@ -48,7 +48,7 @@ jobs:
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ssh:trusty
-          context: ./ssh
+          context: ./ssh/trusty
           file: ./ssh/trusty/Dockerfile
       - name: Image digest (trusty)
         run: echo ${{ steps.docker_build_push_ssh_trusty.outputs.digest }}
@@ -65,7 +65,7 @@ jobs:
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ssh:xenial
-          context: ./ssh
+          context: ./ssh/xenial
           file: ./ssh/xenial/Dockerfile
       - name: Image digest (xenial)
         run: echo ${{ steps.docker_build_push_ssh_xenial.outputs.digest }}
