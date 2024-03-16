@@ -1,0 +1,43 @@
+name: r-base
+
+on:
+  push:
+    paths:
+      - 'r-base/**'
+      - '.github/workflows/r-base.yml'
+  schedule:
+    - cron: '50 2 1 * *'
+
+jobs:
+  docker_r_base:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push r-base image
+        id: docker_build_push_r_base
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/r-base:latest
+          context: ./r-base
+          file: ./r-base/Dockerfile
+      - name: Image digest
+        run: echo ${{ steps.docker_build_push_r_base.outputs.digest }}
+      - name: Scan image
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/r-base:latest
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
