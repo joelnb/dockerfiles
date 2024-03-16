@@ -2,11 +2,9 @@ name: apache
 
 on:
   push:
-    branches:
-      - 'master'
     paths:
       - 'apache/**'
-      - '.github/**'
+      - '.github/workflows/apache.yml'
   schedule:
     - cron: '20 2 1 * *'
 
@@ -25,14 +23,25 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: github.ref == 'refs/heads/master'
       - name: Build and push apache image
-        id: docker_build_apache
+        id: docker_build_push_apache
         uses: docker/build-push-action@v5
         with:
           push: true
           tags: joelnb/apache:latest
           context: ./apache
           file: ./apache/Dockerfile
+        if: github.ref == 'refs/heads/master'
+      - name: Build apache image
+        id: docker_build_apache
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          tags: joelnb/apache:latest
+          context: ./apache
+          file: ./apache/Dockerfile
+        if: github.ref != 'refs/heads/master'
       - name: Image digest
         run: echo ${{ steps.docker_build_apache.outputs.digest }}
       - name: Scan image
@@ -40,3 +49,4 @@ jobs:
         with:
           image: joelnb/apache:latest
           fail-build: false
+        if: github.ref == 'refs/heads/master'
