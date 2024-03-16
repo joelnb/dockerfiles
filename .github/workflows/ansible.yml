@@ -1,0 +1,42 @@
+name: ansible
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'ansible/'
+      - '.github/'
+  schedule:
+    - cron: '10 2 1 * *'
+
+jobs:
+  docker_ansible:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push ansible image
+        id: docker_build_ansible
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: joelnb/ansible:latest
+          context: ./ansible
+          file: ./ansible/Dockerfile
+      - name: Image digest
+        run: echo ${{ steps.docker_build_ansible.outputs.digest }}
+      - name: Scan image
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/ansible:latest
+          fail-build: false

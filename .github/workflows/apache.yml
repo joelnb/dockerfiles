@@ -1,0 +1,42 @@
+name: apache
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'apache/'
+      - '.github/'
+  schedule:
+    - cron: '20 2 1 * *'
+
+jobs:
+  docker_apache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push apache image
+        id: docker_build_apache
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: joelnb/apache:latest
+          context: ./apache
+          file: ./apache/Dockerfile
+      - name: Image digest
+        run: echo ${{ steps.docker_build_apache.outputs.digest }}
+      - name: Scan image
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/apache:latest
+          fail-build: false
