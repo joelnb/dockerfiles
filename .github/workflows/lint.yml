@@ -1,0 +1,10 @@
+name: lint
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container: hadolint/hadolint:latest-debian
+    steps:
+    - uses: actions/checkout@v2
+    - name: hadolint
+      run: hadolint ./**/*Dockerfile*
