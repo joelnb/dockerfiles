@@ -3,13 +3,13 @@ name: dnsmasq
 on:
   push:
     paths:
-      - 'dnsmaq/**'
-      - '.github/workflows/dnsmaq.yml'
+      - 'dnsmasq/**'
+      - '.github/workflows/dnsmasq.yml'
   schedule:
     - cron: '30 2 1 * *'
 
 jobs:
-  docker_dnsmaq:
+  docker_dnsmasq:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,26 +24,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.ref == 'refs/heads/master'
-      - name: Build and push dnsmaq image
+      - name: Build and push dnsmasq image
         id: docker_build_push_dnsmasq
         uses: docker/build-push-action@v5
         with:
-          push: true
-          tags: joelnb/dnsmaq:latest
-          context: ./dnsmaq
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/dnsmasq:latest
+          context: ./dnsmasq
           file: ./dnsmasq/Dockerfile
-        if: github.ref == 'refs/heads/master'
-      - name: Build dnsmasq image
-        id: docker_build_dnsmaq
-        uses: docker/build-push-action@v5
-        with:
-          push: false
-          tags: joelnb/dnsmaq:latest
-          context: ./dnsmaq
-          file: ./dnsmasq/Dockerfile
-        if: github.ref != 'refs/heads/master'
       - name: Image digest
-        run: echo ${{ steps.docker_build_dnsmaq.outputs.digest }}
+        run: echo ${{ steps.docker_build_dnsmasq.outputs.digest }}
       - name: Scan image
         uses: anchore/scan-action@v3
         with:

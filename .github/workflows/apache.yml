@@ -28,20 +28,10 @@ jobs:
         id: docker_build_push_apache
         uses: docker/build-push-action@v5
         with:
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/apache:latest
           context: ./apache
           file: ./apache/Dockerfile
-        if: github.ref == 'refs/heads/master'
-      - name: Build apache image
-        id: docker_build_apache
-        uses: docker/build-push-action@v5
-        with:
-          push: false
-          tags: joelnb/apache:latest
-          context: ./apache
-          file: ./apache/Dockerfile
-        if: github.ref != 'refs/heads/master'
       - name: Image digest
         run: echo ${{ steps.docker_build_apache.outputs.digest }}
       - name: Scan image
