@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     container: hadolint/hadolint:latest-debian
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: hadolint
       run: hadolint ./**/*Dockerfile*
