@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.ref == 'refs/heads/master'
       - name: Build and push ansible image
-        id: docker_build_ansible
+        id: docker_build_push_ansible
         uses: docker/build-push-action@v5
         with:
           push: true
