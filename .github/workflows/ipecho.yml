@@ -28,20 +28,10 @@ jobs:
         id: docker_build_push_ipecho
         uses: docker/build-push-action@v5
         with:
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ipecho:latest
           context: ./ipecho
           file: ./ipecho/Dockerfile
-        if: github.ref == 'refs/heads/master'
-      - name: Build ipecho image
-        id: docker_build_ipecho
-        uses: docker/build-push-action@v5
-        with:
-          push: false
-          tags: joelnb/ipecho:latest
-          context: ./ipecho
-          file: ./ipecho/Dockerfile
-        if: github.ref != 'refs/heads/master'
       - name: Image digest
         run: echo ${{ steps.docker_build_ipecho.outputs.digest }}
       - name: Scan image

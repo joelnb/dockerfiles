@@ -28,20 +28,10 @@ jobs:
         id: docker_build_push_latex
         uses: docker/build-push-action@v5
         with:
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/latex:latest
           context: ./latex
           file: ./latex/Dockerfile
-        if: github.ref == 'refs/heads/master'
-      - name: Build latex image
-        id: docker_build_latex
-        uses: docker/build-push-action@v5
-        with:
-          push: false
-          tags: joelnb/latex:latest
-          context: ./latex
-          file: ./latex/Dockerfile
-        if: github.ref != 'refs/heads/master'
       - name: Image digest
         run: echo ${{ steps.docker_build_latex.outputs.digest }}
       - name: Scan image
