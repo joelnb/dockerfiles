@@ -2,11 +2,9 @@ name: ansible
 
 on:
   push:
-    branches:
-      - 'master'
     paths:
       - 'ansible/**'
-      - '.github/**'
+      - '.github/workflows/ansible.yml'
   schedule:
     - cron: '10 2 1 * *'
 
@@ -29,7 +27,7 @@ jobs:
         id: docker_build_ansible
         uses: docker/build-push-action@v5
         with:
-          push: true
+          push: github.ref == 'refs/heads/master'
           tags: joelnb/ansible:latest
           context: ./ansible
           file: ./ansible/Dockerfile
