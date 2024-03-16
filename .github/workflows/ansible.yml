@@ -23,14 +23,25 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: github.ref == 'refs/heads/master'
       - name: Build and push ansible image
         id: docker_build_ansible
         uses: docker/build-push-action@v5
         with:
-          push: github.ref == 'refs/heads/master'
+          push: true
           tags: joelnb/ansible:latest
           context: ./ansible
           file: ./ansible/Dockerfile
+        if: github.ref == 'refs/heads/master'
+      - name: Build ansible image
+        id: docker_build_ansible
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          tags: joelnb/ansible:latest
+          context: ./ansible
+          file: ./ansible/Dockerfile
+        if: github.ref != 'refs/heads/master'
       - name: Image digest
         run: echo ${{ steps.docker_build_ansible.outputs.digest }}
       - name: Scan image
