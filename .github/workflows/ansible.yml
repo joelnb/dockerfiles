@@ -49,3 +49,4 @@ jobs:
         with:
           image: joelnb/ansible:latest
           fail-build: false
+        if: github.ref == 'refs/heads/master'
