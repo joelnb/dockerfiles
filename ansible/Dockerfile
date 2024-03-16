@@ -15,6 +15,8 @@ RUN \
     apt-get -y update && \
     apt-get -y install --no-install-recommends \
         ansible \
+        ansible-lint \
+        yamllint \
     && \
     apt-get -y autoremove && \
     apt-get clean && \
