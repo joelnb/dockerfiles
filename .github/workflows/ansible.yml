@@ -28,20 +28,10 @@ jobs:
         id: docker_build_push_ansible
         uses: docker/build-push-action@v5
         with:
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ansible:latest
           context: ./ansible
           file: ./ansible/Dockerfile
-        if: github.ref == 'refs/heads/master'
-      - name: Build ansible image
-        id: docker_build_ansible
-        uses: docker/build-push-action@v5
-        with:
-          push: false
-          tags: joelnb/ansible:latest
-          context: ./ansible
-          file: ./ansible/Dockerfile
-        if: github.ref != 'refs/heads/master'
       - name: Image digest
         run: echo ${{ steps.docker_build_ansible.outputs.digest }}
       - name: Scan image
