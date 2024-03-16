@@ -5,8 +5,8 @@ on:
     branches:
       - 'master'
     paths:
-      - 'ansible/'
-      - '.github/'
+      - 'ansible/**'
+      - '.github/**'
   schedule:
     - cron: '10 2 1 * *'
 
