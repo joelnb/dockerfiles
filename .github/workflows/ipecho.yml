@@ -24,6 +24,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.ref == 'refs/heads/master'
+
       - name: Build and push ipecho image
         id: docker_build_push_ipecho
         uses: docker/build-push-action@v5
@@ -33,7 +34,7 @@ jobs:
           context: ./ipecho
           file: ./ipecho/Dockerfile
       - name: Image digest
-        run: echo ${{ steps.docker_build_ipecho.outputs.digest }}
+        run: echo ${{ steps.docker_build_push_ipecho.outputs.digest }}
       - name: Scan image
         uses: anchore/scan-action@v3
         with:

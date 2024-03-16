@@ -1,0 +1,179 @@
+name: get-deb
+
+on:
+  push:
+    paths:
+      - 'get-deb/**'
+      - '.github/workflows/get-deb.yml'
+  schedule:
+    - cron: '10 3 1 * *'
+
+jobs:
+  docker_get_deb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (latest)
+        id: docker_build_push_get_deb
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:latest
+          context: ./get-deb
+          file: ./get-deb/Dockerfile
+      - name: Image digest (latest)
+        run: echo ${{ steps.docker_build_push_get_deb.outputs.digest }}
+      - name: Scan image (latest)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:latest
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (xenial)
+        id: docker_build_push_get_deb_xenial
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:xenial
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-xenial
+      - name: Image digest (xenial)
+        run: echo ${{ steps.docker_build_push_get_deb_xenial.outputs.digest }}
+      - name: Scan image (xenial)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:xenial
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (bionic)
+        id: docker_build_push_get_deb_bionic
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:bionic
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-bionic
+      - name: Image digest (bionic)
+        run: echo ${{ steps.docker_build_push_get_deb_bionic.outputs.digest }}
+      - name: Scan image (bionic)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:bionic
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (focal)
+        id: docker_build_push_get_deb_focal
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:focal
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-focal
+      - name: Image digest (focal)
+        run: echo ${{ steps.docker_build_push_get_deb_focal.outputs.digest }}
+      - name: Scan image (focal)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:focal
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (jammy)
+        id: docker_build_push_get_deb_jammy
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:jammy
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-jammy
+      - name: Image digest (jammy)
+        run: echo ${{ steps.docker_build_push_get_deb_jammy.outputs.digest }}
+      - name: Scan image (jammy)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:jammy
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (debian-latest)
+        id: docker_build_push_get_deb_debian_latest
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:debian-latest
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-debian-latest
+      - name: Image digest (debian-latest)
+        run: echo ${{ steps.docker_build_push_get_deb_debian_latest.outputs.digest }}
+      - name: Scan image (debian-latest)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:debian-latest
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (bullseye)
+        id: docker_build_push_get_deb_bullseye
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:bullseye
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-bullseye
+      - name: Image digest (bullseye)
+        run: echo ${{ steps.docker_build_push_get_deb_bullseye.outputs.digest }}
+      - name: Scan image (bullseye)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:bullseye
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (buster)
+        id: docker_build_push_get_deb_buster
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:buster
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-buster
+      - name: Image digest (buster)
+        run: echo ${{ steps.docker_build_push_get_deb_buster.outputs.digest }}
+      - name: Scan image (buster)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:buster
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
+
+      - name: Build and push get-deb image (bookworm)
+        id: docker_build_push_get_deb_bookworm
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: joelnb/get-deb:bookworm
+          context: ./get-deb
+          file: ./get-deb/Dockerfile-bookworm
+      - name: Image digest (bookworm)
+        run: echo ${{ steps.docker_build_push_get_deb_bookworm.outputs.digest }}
+      - name: Scan image (bookworm)
+        uses: anchore/scan-action@v3
+        with:
+          image: joelnb/get-deb:bookworm
+          fail-build: false
+        if: github.ref == 'refs/heads/master'
