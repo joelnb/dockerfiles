@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:noble
 LABEL maintainer="joelnbarnham@gmail.com"
 
 WORKDIR /build

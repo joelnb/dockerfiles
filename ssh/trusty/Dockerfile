@@ -1,4 +1,4 @@
-FROM ubuntu:14.04.5
+FROM ubuntu:24.04
 LABEL maintainer="joelnbarnham@gmail.com"
 
 RUN \
