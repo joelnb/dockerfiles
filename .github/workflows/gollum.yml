@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push gollum image (latest)
         id: docker_build_push_gollum
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/gollum:latest
@@ -44,7 +44,7 @@ jobs:
 
       - name: Build and push gollum image (nginx)
         id: docker_build_push_gollum_nginx
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/gollum:nginx

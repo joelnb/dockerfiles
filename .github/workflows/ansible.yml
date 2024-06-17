@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push ansible image
         id: docker_build_push_ansible
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ansible:latest

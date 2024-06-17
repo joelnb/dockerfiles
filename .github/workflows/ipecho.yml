@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push ipecho image
         id: docker_build_push_ipecho
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ipecho:latest
