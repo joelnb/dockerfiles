@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push get-deb image (latest)
         id: docker_build_push_get_deb
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:latest
@@ -44,7 +44,7 @@ jobs:
 
       - name: Build and push get-deb image (xenial)
         id: docker_build_push_get_deb_xenial
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:xenial
@@ -61,7 +61,7 @@ jobs:
 
       - name: Build and push get-deb image (bionic)
         id: docker_build_push_get_deb_bionic
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:bionic
@@ -78,7 +78,7 @@ jobs:
 
       - name: Build and push get-deb image (focal)
         id: docker_build_push_get_deb_focal
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:focal
@@ -95,7 +95,7 @@ jobs:
 
       - name: Build and push get-deb image (jammy)
         id: docker_build_push_get_deb_jammy
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:jammy
@@ -112,7 +112,7 @@ jobs:
 
       - name: Build and push get-deb image (debian-latest)
         id: docker_build_push_get_deb_debian_latest
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:debian-latest
@@ -129,7 +129,7 @@ jobs:
 
       - name: Build and push get-deb image (bullseye)
         id: docker_build_push_get_deb_bullseye
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:bullseye
@@ -146,7 +146,7 @@ jobs:
 
       - name: Build and push get-deb image (buster)
         id: docker_build_push_get_deb_buster
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:buster
@@ -163,7 +163,7 @@ jobs:
 
       - name: Build and push get-deb image (bookworm)
         id: docker_build_push_get_deb_bookworm
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/get-deb:bookworm

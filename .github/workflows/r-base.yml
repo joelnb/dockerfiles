@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push r-base image
         id: docker_build_push_r_base
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/r-base:latest

@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push ssh image (latest)
         id: docker_build_push_ssh
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ssh:latest
@@ -44,7 +44,7 @@ jobs:
 
       - name: Build and push ssh image (trusty)
         id: docker_build_push_ssh_trusty
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ssh:trusty
@@ -61,7 +61,7 @@ jobs:
 
       - name: Build and push ssh image (xenial)
         id: docker_build_push_ssh_xenial
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/ssh:xenial
