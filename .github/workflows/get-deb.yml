@@ -36,7 +36,7 @@ jobs:
       - name: Image digest (latest)
         run: echo ${{ steps.docker_build_push_get_deb.outputs.digest }}
       - name: Scan image (latest)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:latest
           fail-build: false
@@ -53,7 +53,7 @@ jobs:
       - name: Image digest (xenial)
         run: echo ${{ steps.docker_build_push_get_deb_xenial.outputs.digest }}
       - name: Scan image (xenial)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:xenial
           fail-build: false
@@ -70,7 +70,7 @@ jobs:
       - name: Image digest (bionic)
         run: echo ${{ steps.docker_build_push_get_deb_bionic.outputs.digest }}
       - name: Scan image (bionic)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:bionic
           fail-build: false
@@ -87,7 +87,7 @@ jobs:
       - name: Image digest (focal)
         run: echo ${{ steps.docker_build_push_get_deb_focal.outputs.digest }}
       - name: Scan image (focal)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:focal
           fail-build: false
@@ -104,7 +104,7 @@ jobs:
       - name: Image digest (jammy)
         run: echo ${{ steps.docker_build_push_get_deb_jammy.outputs.digest }}
       - name: Scan image (jammy)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:jammy
           fail-build: false
@@ -121,7 +121,7 @@ jobs:
       - name: Image digest (debian-latest)
         run: echo ${{ steps.docker_build_push_get_deb_debian_latest.outputs.digest }}
       - name: Scan image (debian-latest)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:debian-latest
           fail-build: false
@@ -138,7 +138,7 @@ jobs:
       - name: Image digest (bullseye)
         run: echo ${{ steps.docker_build_push_get_deb_bullseye.outputs.digest }}
       - name: Scan image (bullseye)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:bullseye
           fail-build: false
@@ -155,7 +155,7 @@ jobs:
       - name: Image digest (buster)
         run: echo ${{ steps.docker_build_push_get_deb_buster.outputs.digest }}
       - name: Scan image (buster)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:buster
           fail-build: false
@@ -172,7 +172,7 @@ jobs:
       - name: Image digest (bookworm)
         run: echo ${{ steps.docker_build_push_get_deb_bookworm.outputs.digest }}
       - name: Scan image (bookworm)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/get-deb:bookworm
           fail-build: false

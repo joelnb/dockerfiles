@@ -36,7 +36,7 @@ jobs:
       - name: Image digest (latest)
         run: echo ${{ steps.docker_build_push_ssh.outputs.digest }}
       - name: Scan image (latest)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/ssh:latest
           fail-build: false
@@ -53,7 +53,7 @@ jobs:
       - name: Image digest (trusty)
         run: echo ${{ steps.docker_build_push_ssh_trusty.outputs.digest }}
       - name: Scan image (trusty)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/ssh:trusty
           fail-build: false
@@ -70,7 +70,7 @@ jobs:
       - name: Image digest (xenial)
         run: echo ${{ steps.docker_build_push_ssh_xenial.outputs.digest }}
       - name: Scan image (xenial)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           image: joelnb/ssh:xenial
           fail-build: false
