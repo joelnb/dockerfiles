@@ -36,7 +36,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build_push_apache.outputs.digest }}
       - name: Scan image
-        uses: anchore/scan-action@v5
+        uses: anchore/scan-action@v6
         with:
           image: joelnb/apache:latest
           fail-build: false

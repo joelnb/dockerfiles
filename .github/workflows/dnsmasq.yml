@@ -36,7 +36,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build_push_dnsmasq.outputs.digest }}
       - name: Scan image
-        uses: anchore/scan-action@v5
+        uses: anchore/scan-action@v6
         with:
           image: joelnb/dnsmasq:latest
           fail-build: false

@@ -36,7 +36,7 @@ jobs:
       - name: Image digest (latest)
         run: echo ${{ steps.docker_build_push_gollum.outputs.digest }}
       - name: Scan image (latest)
-        uses: anchore/scan-action@v5
+        uses: anchore/scan-action@v6
         with:
           image: joelnb/gollum:latest
           fail-build: false
@@ -53,7 +53,7 @@ jobs:
       - name: Image digest (nginx)
         run: echo ${{ steps.docker_build_push_gollum_nginx.outputs.digest }}
       - name: Scan image (nginx)
-        uses: anchore/scan-action@v5
+        uses: anchore/scan-action@v6
         with:
           image: joelnb/gollum:nginx
           fail-build: false
