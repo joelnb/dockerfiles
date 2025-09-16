@@ -36,7 +36,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build_push_ipecho.outputs.digest }}
       - name: Scan image
-        uses: anchore/scan-action@v5
+        uses: anchore/scan-action@v7
         with:
           image: joelnb/ipecho:latest
           fail-build: false
