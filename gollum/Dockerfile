@@ -1,4 +1,4 @@
-FROM debian:12
+FROM debian:13
 LABEL maintainer="joelnbarnham@gmail.com"
 
 COPY nginx/Gemfile /opt/gollum/
