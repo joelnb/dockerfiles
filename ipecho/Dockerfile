@@ -1,7 +1,7 @@
 FROM node:8-slim
 LABEL maintainer="joelnbarnham@gmail.com"
 
-ENV TINI_VERSION v0.15.0
+ENV TINI_VERSION=v0.15.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /sbin/tini
 RUN chmod +x /sbin/tini
 
