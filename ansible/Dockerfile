@@ -8,6 +8,7 @@ RUN \
     apt-get -y install --no-install-recommends \
         ca-certificates \
         curl \
+        git \
         gnupg2 \
     && \
     curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x93c4a3fd7bb9c367" | gpg --dearmor > /etc/apt/trusted.gpg.d/ansible.gpg && \
