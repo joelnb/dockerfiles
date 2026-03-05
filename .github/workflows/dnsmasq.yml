@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and push dnsmasq image
         id: docker_build_push_dnsmasq
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: joelnb/dnsmasq:latest
