@@ -1,4 +1,4 @@
-FROM debian:12
+FROM debian:bookworm-20260623
 LABEL maintainer="joelnbarnham@gmail.com"
 
 COPY Gemfile /opt/gollum/
