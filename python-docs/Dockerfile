@@ -1,4 +1,4 @@
-FROM debian:11
+FROM debian:bullseye-20260623
 LABEL maintainer="joelnbarnham@gmail.com"
 
 WORKDIR /build
