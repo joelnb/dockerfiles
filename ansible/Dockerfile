@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ubuntu:resolute
 LABEL maintainer="joelnbarnham@gmail.com"
 
 
